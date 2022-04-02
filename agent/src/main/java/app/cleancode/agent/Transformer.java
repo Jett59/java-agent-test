@@ -12,12 +12,12 @@ public class Transformer implements ClassFileTransformer {
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined,
             ProtectionDomain protectionDomain, byte[] classfileBuffer)
             throws IllegalClassFormatException {
-        if (!className.startsWith("java") && !className.startsWith("sun")
-                && !className.startsWith("jdk")
+        if (loader == ClassLoader.getSystemClassLoader()
                 && !className.equals("app/cleancode/agent/AgentHandler")) {
             ClassReader classReader = new ClassReader(classfileBuffer);
             ClassWriter classWriter = new ClassWriter(0);
-            ClassTraceAdapter traceAdapter = new ClassTraceAdapter(Opcodes.ASM9, classWriter);
+            ClassTraceAdapter traceAdapter =
+                    new ClassTraceAdapter(Opcodes.ASM9, classWriter, className);
             classReader.accept(traceAdapter, 0);
             return classWriter.toByteArray();
         } else {
