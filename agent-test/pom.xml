@@ -6,4 +6,20 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>agent-test</artifactId>
+  <build>
+  	<plugins>
+  		<plugin>
+  			<groupId>org.apache.maven.plugins</groupId>
+  			<artifactId>maven-jar-plugin</artifactId>
+  			<version>3.2.2</version>
+  			<configuration>
+  			<archive>
+  			<manifest>
+  			<mainClass>app.cleancode.Entrypoint</mainClass>
+  			</manifest>
+  			</archive>
+  			</configuration>
+  		</plugin>
+  	</plugins>
+  </build>
 </project>
